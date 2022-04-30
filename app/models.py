@@ -34,6 +34,7 @@ class Signature(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(48), index=True)
     duration = Column(Integer, default=4)
+    bachelors_degree_id = Column(Integer, ForeignKey("bachelors_degree.id"))
     bachelors_degree = relationship("BachelorsDegree", back_populates="signatures", secondary=association_table)
 
 
