@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy import Column, ForeignKey, Integer, String, Table, Date
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import validates
 
@@ -18,6 +18,7 @@ class Lead(Base):
     address = Column(String(110))
     email = relationship("Email", back_populates="lead", uselist=False)
     phone = Column(Integer)
+    inscription = Column(Date)
     projections_by_degree = relationship("ProjectionByDegree", back_populates="lead")
 
 
