@@ -3,6 +3,7 @@
 subjects of each bachelor's degree in which they are enrolled.</p>
 
 <h2>EndPoints</h2>
+
 ![img.png](img/img.png)
 
 <h3>/demo-data/</h3>
