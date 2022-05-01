@@ -23,13 +23,20 @@ def create_bachelors_degree(db: Session, bachelors_degree: schemas.BachelorsDegr
     return db_bachelors_degree
 
 
+def get_bachelors_degree_by_name(db: Session, bachelors_degree_name: str):
+    return db.query(models.BachelorsDegree).filter(models.BachelorsDegree.name == bachelors_degree_name).first()
+
+
 def create_signature(db: Session, signature: schemas.SignatureCreate):
-    db_signature = models.BachelorsDegree(name=signature.name,
-                                          duration=signature.duration)
+    db_signature = models.Signature(**signature.dict())
     db.add(db_signature)
     db.commit()
     db.refresh(db_signature)
     return db_signature
+
+
+def get_signature_by_name(db: Session, signature_name: str):
+    return db.query(models.Signature).filter(models.Signature.name == signature_name).first()
 
 
 def create_lead(db: Session, lead: schemas.LeadCreate):
@@ -42,7 +49,7 @@ def create_lead(db: Session, lead: schemas.LeadCreate):
 
 def create_projections_by_degree(db: Session, pbd: schemas.ProjectionByDegreeCreate):
     # projections_by_degree as pbd
-    db_pbd = models.ProjectionByDegree(lead=pbd.lead)
+    db_pbd = models.ProjectionByDegree(**pbd.dict())
     db.add(db_pbd)
     db.commit()
     db.refresh(db_pbd)
@@ -51,7 +58,7 @@ def create_projections_by_degree(db: Session, pbd: schemas.ProjectionByDegreeCre
 
 def create_projections_by_signature(db: Session, pbs: schemas.ProjectionBySignatureCreate):
     # projections_by_signature as pbs
-    db_pbs = models.ProjectionBySignature(times=pbs.times)
+    db_pbs = models.ProjectionBySignature(**pbs.dict())
     db.add(db_pbs)
     db.commit()
     db.refresh(db_pbs)
