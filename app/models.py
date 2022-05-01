@@ -11,8 +11,10 @@ class Lead(Base):
     surname = Column(String(32), index=True)
     address = Column(String(110))
     email = Column(String)
+    dni = Column(Integer)
     phone = Column(Integer)
     inscription = Column(Date)
+    total_cursing_hours = Column(Integer)
 
     projection_by_degree = relationship("ProjectionByDegree", back_populates='lead')
 
@@ -29,7 +31,9 @@ class Signature(Base):
     __tablename__ = "signatures"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(48), index=True)
-    duration = Column(Integer, default=4)
+    monthly_duration = Column(Integer, default=4)
+    weekly_hours = Column(Integer)
+    time_signature = Column(Integer)
 
     projections_by_signature = relationship("ProjectionBySignature", back_populates='signature')
 
@@ -39,6 +43,7 @@ class ProjectionByDegree(Base):
     id = Column(Integer, primary_key=True, index=True)
     lead_id = Column(Integer, ForeignKey('leads.id'))
     bachelors_degrees_id = Column(Integer, ForeignKey('bachelors_degrees.id'))
+    pbd_time = Column(Integer)
 
     projections_by_signature = relationship("ProjectionBySignature", back_populates='projections_by_degree')
     bachelors_degrees = relationship("BachelorsDegree", back_populates='projections_by_degree')
@@ -51,6 +56,7 @@ class ProjectionBySignature(Base):
     times = Column(Integer, default=0)
     signature_id = Column(Integer, ForeignKey('signatures.id'))
     projections_by_degree_id = Column(Integer, ForeignKey('projections_by_degree.id'))
+    pbs_time = Column(Integer)
 
     signature = relationship("Signature", back_populates='projections_by_signature')
     projections_by_degree = relationship("ProjectionByDegree", back_populates='projections_by_signature')
