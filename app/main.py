@@ -1,10 +1,17 @@
+from demo_data import lead_data_values, degree_data_values, signature_data_values, pdb_data_values, pbs_data_values
+import requests
+import json
 from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException
+
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
+
+# Change to True if you want to fill database with some data
+demo = True
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -18,6 +25,31 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+# Demo Data
+@app.post("/demo-data/")
+def demo_data():
+    root = 'http://127.0.0.1:8000/'
+    if demo:
+        for data in lead_data_values:
+            url = root + 'leads/'
+            requests.post(url, data=json.dumps(data))
+        for data in degree_data_values:
+            url = root + 'degree/'
+            requests.post(url, data=json.dumps(data))
+        for data in signature_data_values:
+            url = root + 'signature/'
+            requests.post(url, data=json.dumps(data))
+        for data in pdb_data_values:
+            url = root + 'pbd/'
+            requests.post(url, data=json.dumps(data))
+        for data in pbs_data_values:
+            url = root + 'pbs/'
+            requests.post(url, data=json.dumps(data))
+        return HTTPException(status_code=200, detail="Demo was finally installed")
+    else:
+        raise HTTPException(status_code=400, detail="Demo is not available")
 
 
 # Leads Section
