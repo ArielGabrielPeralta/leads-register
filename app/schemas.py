@@ -12,7 +12,6 @@ class SignatureBase(BaseModel):
 
 class Signature(SignatureBase):
     id: int
-    bachelors_degree_id: int
 
     class Config:
         orm_mode = True
@@ -28,7 +27,6 @@ class BachelorsDegreeBase(BaseModel):
 
 class BachelorsDegree(BachelorsDegreeBase):
     id: int
-    signatures: List[Signature]
 
     class Config:
         orm_mode = True
@@ -44,24 +42,24 @@ class ProjectionBySignatureBase(BaseModel):
 
 class ProjectionBySignature(ProjectionBySignatureBase):
     id: int
-    bachelors_degree: int
-    signature: int
+    signature: Signature = None
 
     class Config:
         orm_mode = True
 
 
 class ProjectionBySignatureCreate(ProjectionBySignatureBase):
-    pass
+    projections_by_degree_id: int
+    signature_id: int
 
 
 class ProjectionByDegreeBase(BaseModel):
-    lead: int
+    pass
 
 
 class ProjectionByDegree(ProjectionByDegreeBase):
     id: int
-    bachelors_degree: int
+    bachelors_degrees: BachelorsDegree
     projections_by_signature: List[ProjectionBySignature]
 
     class Config:
@@ -69,7 +67,8 @@ class ProjectionByDegree(ProjectionByDegreeBase):
 
 
 class ProjectionByDegreeCreate(ProjectionByDegreeBase):
-    pass
+    lead_id: int
+    bachelors_degrees_id: int
 
 
 class LeadBase(BaseModel):
