@@ -1,4 +1,4 @@
-from demo_data import lead_data_values, degree_data_values, signature_data_values, pdb_data_values, pbs_data_values
+from app.demo_data import lead_data_values, degree_data_values, signature_data_values, pdb_data_values, pbs_data_values
 import requests
 import json
 from typing import List
