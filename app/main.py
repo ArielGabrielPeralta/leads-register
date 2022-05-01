@@ -11,7 +11,7 @@ from . import crud, models, schemas
 from .database import SessionLocal, engine
 
 # Change to True if you want to fill database with some data
-demo = True
+demo = False
 
 models.Base.metadata.create_all(bind=engine)
 
