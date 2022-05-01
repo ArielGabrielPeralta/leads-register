@@ -13,14 +13,13 @@ class SignatureBase(BaseModel):
 
 class Signature(SignatureBase):
     id: int
-    time_signature: int = 0
 
     class Config:
         orm_mode = True
 
 
 class SignatureCreate(SignatureBase):
-    pass
+    time_signature: int = 0
 
 
 class BachelorsDegreeBase(BaseModel):
@@ -54,6 +53,7 @@ class ProjectionBySignature(ProjectionBySignatureBase):
 class ProjectionBySignatureCreate(ProjectionBySignatureBase):
     projections_by_degree_id: int
     signature_id: int
+    pbs_time: Optional[int] = 0
 
 
 class ProjectionByDegreeBase(BaseModel):
@@ -64,7 +64,7 @@ class ProjectionByDegree(ProjectionByDegreeBase):
     id: int
     bachelors_degrees: BachelorsDegree
     projections_by_signature: List[ProjectionBySignature]
-    pbd_time: int = 0
+    pbd_time: Optional[int] = 0
 
     class Config:
         orm_mode = True
@@ -73,6 +73,7 @@ class ProjectionByDegree(ProjectionByDegreeBase):
 class ProjectionByDegreeCreate(ProjectionByDegreeBase):
     lead_id: int
     bachelors_degrees_id: int
+    pbd_time: Optional[int] = 0
 
 
 class LeadBase(BaseModel):
@@ -95,4 +96,4 @@ class Lead(LeadBase):
 
 
 class LeadCreate(LeadBase):
-    pass
+    total_cursing_hours: Optional[int] = 0
