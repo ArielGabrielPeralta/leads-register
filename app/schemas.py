@@ -2,16 +2,18 @@ from datetime import date
 
 from typing import List, Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class SignatureBase(BaseModel):
     name: str
-    duration: Optional[int] = 4
+    monthly_duration: int = 4
+    weekly_hours: int = Field(..., gt=0, lt=50)
 
 
 class Signature(SignatureBase):
     id: int
+    time_signature: int = 0
 
     class Config:
         orm_mode = True
@@ -43,6 +45,7 @@ class ProjectionBySignatureBase(BaseModel):
 class ProjectionBySignature(ProjectionBySignatureBase):
     id: int
     signature: Signature = None
+    pbs_time: int = 0
 
     class Config:
         orm_mode = True
@@ -61,6 +64,7 @@ class ProjectionByDegree(ProjectionByDegreeBase):
     id: int
     bachelors_degrees: BachelorsDegree
     projections_by_signature: List[ProjectionBySignature]
+    pbd_time: int = 0
 
     class Config:
         orm_mode = True
@@ -76,13 +80,15 @@ class LeadBase(BaseModel):
     surname: str
     address: str
     email: EmailStr
-    phone: int
+    dni: int = Field(..., gt=0, le=99999999)
+    phone: int = Field(..., gt=0, le=9999999999)
     inscription: date
 
 
 class Lead(LeadBase):
     id: int
     projection_by_degree: List[ProjectionByDegree]
+    total_cursing_hours: int = 0
 
     class Config:
         orm_mode = True
