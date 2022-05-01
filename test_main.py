@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from .main import app
+from app.main import app
 
 client = TestClient(app)
 
@@ -27,13 +27,13 @@ def test_create_lead():
             "email": "juan@test.com",
             "phone": 1143012943,
             "inscription": "2022-03-01",
-            "id": 1,
+            "id": 2,
             "projection_by_degree": []
         }
 
 
 def test_read_lead():
-    response = client.get("/leads/1")
+    response = client.get("/leads/2")
     assert response.status_code == 200
     assert response.json() == {
         "name": "Juan",
@@ -42,7 +42,7 @@ def test_read_lead():
         "email": "juan@test.com",
         "phone": 1143012943,
         "inscription": "2022-03-01",
-        'id': 1,
+        'id': 2,
         'projection_by_degree': []
     }
 
