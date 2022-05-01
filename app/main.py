@@ -85,6 +85,12 @@ def create_degree(degree: schemas.BachelorsDegreeCreate, db: Session = Depends(g
     return crud.create_bachelors_degree(db=db, bachelors_degree=degree)
 
 
+@app.get("/degree/", response_model=List[schemas.BachelorsDegree])
+def read_degrees(skip: int = 0, limit: int = 25, db: Session = Depends(get_db)):
+    degrees = crud.get_bachelors_degrees(db, skip=skip, limit=limit)
+    return degrees
+
+
 # Signature Section
 @app.post("/signature/", response_model=schemas.Signature)
 def create_signature(signature: schemas.SignatureCreate, db: Session = Depends(get_db)):
@@ -93,6 +99,12 @@ def create_signature(signature: schemas.SignatureCreate, db: Session = Depends(g
         raise HTTPException(status_code=400, detail="Signature already exist")
     signature.time_signature = signature.monthly_duration * 4 * signature.weekly_hours
     return crud.create_signature(db=db, signature=signature)
+
+
+@app.get("/signatures/", response_model=List[schemas.Signature])
+def read_degrees(skip: int = 0, limit: int = 25, db: Session = Depends(get_db)):
+    signature = crud.get_signatures(db, skip=skip, limit=limit)
+    return signature
 
 
 # Projection By Degree Section

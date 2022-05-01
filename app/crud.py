@@ -27,6 +27,10 @@ def create_bachelors_degree(db: Session, bachelors_degree: schemas.BachelorsDegr
     return db_bachelors_degree
 
 
+def get_bachelors_degrees(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.BachelorsDegree).offset(skip).limit(limit).all()
+
+
 def get_bachelors_degree_by_name(db: Session, bachelors_degree_name: str):
     return db.query(models.BachelorsDegree).filter(models.BachelorsDegree.name == bachelors_degree_name).first()
 
@@ -37,6 +41,10 @@ def create_signature(db: Session, signature: schemas.SignatureCreate):
     db.commit()
     db.refresh(db_signature)
     return db_signature
+
+
+def get_signatures(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Signature).offset(skip).limit(limit).all()
 
 
 def get_signature_by_name(db: Session, signature_name: str):
