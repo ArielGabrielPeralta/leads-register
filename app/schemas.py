@@ -13,6 +13,7 @@ class SignatureBase(BaseModel):
 
 class Signature(SignatureBase):
     id: int
+    time_signature: int = 0
 
     class Config:
         orm_mode = True
