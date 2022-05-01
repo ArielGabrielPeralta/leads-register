@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 
-def get_lead(db: Session, user_id: int):
-    return db.query(models.Lead).filter(models.Lead.id == user_id).first()
+def get_lead(db: Session, lead_id: int):
+    return db.query(models.Lead).filter(models.Lead.id == lead_id).first()
 
 
 def get_lead_by_email(db: Session, email: str):
