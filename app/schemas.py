@@ -82,7 +82,7 @@ class LeadBase(BaseModel):
 
 class Lead(LeadBase):
     id: int
-    projections_by_degree: List[ProjectionByDegree]
+    projection_by_degree: List[ProjectionByDegree]
 
     class Config:
         orm_mode = True
