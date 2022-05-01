@@ -11,6 +11,10 @@ def get_lead_by_email(db: Session, email: str):
     return db.query(models.Lead).filter(models.Lead.email == email).first()
 
 
+def get_lead_by_dni(db: Session, dni: int):
+    return db.query(models.Lead).filter(models.Lead.dni == dni).first()
+
+
 def get_leads(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Lead).offset(skip).limit(limit).all()
 
