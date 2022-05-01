@@ -81,7 +81,7 @@ class LeadBase(BaseModel):
     inscription: date
 
 
-class Student(LeadBase):
+class Lead(LeadBase):
     id: int
     projections_by_degree: List[ProjectionByDegree]
 
